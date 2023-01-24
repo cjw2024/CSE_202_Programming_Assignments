@@ -5,4 +5,4 @@ This repository is for the programming assignments for the class Computer Organi
 ### Contributors and Contact Information
 
 1. **Caden Wright**
-  * cjw224@lehigh.edu
+   * cjw224@lehigh.edu
