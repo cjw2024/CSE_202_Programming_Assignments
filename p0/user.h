@@ -7,6 +7,7 @@ enum ACCESS{
 struct User{
     char* username;
     char* password;
+    int val;
 };
 
 typedef struct User user_t;

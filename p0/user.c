@@ -6,20 +6,49 @@
 
 #include "user.h"
 
+char* filename = "users.txt";
+user_t* user_list;
+user_t user;
+
 int main(int argc, char** argv){
-    user_t user;
     user.password = argv[1];
     puts(user.password);
     reset_password(&user);
     //new_password(argv[1]);
     puts(user.password);
+    puts("");
 
-    char* filename = "users.txt";
-    user_t* user_list = (user_t *)malloc(sizeof(user_t));;
+    //char* filename = "users.txt";
+    user_list = (user_t *)malloc(sizeof(user_t));
     int user_count = read_users(user_list, filename);
-    printf("%d\n", user_count);
-    //puts(user_list[99].username);
-    //puts(user_list[99].password);
+    //printf("%d\n", user_count);
+    puts(user_list[0].username);
+    puts(user_list[0].password);
+
+    for (int i = 0; i < 100; i++){
+        printf("%s\n", user_list[i].username);
+        printf("%s\n", user_list[i].password);
+        //printf("%d\n", user_list[i].val);
+        printf("%c\n\n", user_list[i].val);
+    }
+
+    //int saved = save_users(user_list, filename, user_count);
+    //printf("%d\n", saved);
+
+    char* name = "mar210";
+    int index = find_username(user_list, name, user_count);
+    printf("%d\n", index);
+
+    char* name2 = "lca213";
+    char* pass2 = "`akFzM?_67";
+    int index2 = find_user(user_list, name2, pass2, user_count);
+    printf("%d\n", index2);
+
+    char* name3 = "lca213";
+    char* pass3 = "`akFzM?_6";
+    int index3 = find_user(user_list, name3, pass3, user_count);
+    printf("%d\n", index3);
+
 }
 
 void new_password(char* pass){
@@ -28,7 +57,9 @@ void new_password(char* pass){
     //printf("%d\n", length);
     int n = 94;
     srand(time(0));
+    //pass = (char *)malloc(sizeof(char));
     for(; i < length; i++){
+        //pass = (char *)realloc(pass, i+1 * sizeof(char));
         *(pass + i) = (char) (rand() % n + 32);
         //printf("%c\n", *(pass + i));
     }
@@ -61,14 +92,21 @@ int read_users(user_t *user_list, char* filename){
         //printf("%s", buffer[i]);
         char* user = strtok(buffer[i], " ");
         char* pass = strtok(NULL, " ");
+        char* num = strtok(NULL, " ");
 
         user_list[i].username = malloc(strlen(user) + 1);
         user_list[i].password = malloc(strlen(pass) + 1);
+        //user_list[i].val = malloc(sizeof(char));
         
         strcpy(user_list[i].username, user);
         strcpy(user_list[i].password, pass);
-        printf("%s\n", user_list[i].username);
+        //strcpy(user_list[i].val, num[0]);
+        user_list[i].val = (int) num[0];
+
+        /*printf("%s\n", user_list[i].username);
         printf("%s\n", user_list[i].password);
+        //printf("%d\n", user_list[i].val);
+        printf("%c\n\n", user_list[i].val);*/
     }
     
     return n;
@@ -76,12 +114,41 @@ int read_users(user_t *user_list, char* filename){
 
 int save_users(user_t *user_list, char* filename, int size){
 
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        return -1;
+    }
+
+    for(int i = 50; i < size; i++){
+        fprintf(file, "%s %s %c\n", user_list[i].username, user_list[i].password, user_list[i].val);
+    }
+
+    fclose(file);
+    return 0;
 };
 
 int find_username(user_t *user_list, char* username, int size){
+    
+    for(int i = 0; i < size; i++){
+        if(strcmp(username, user_list[i].username) == 0){
+            return i;
+        }
+    }
 
+    return -1;
 };
 
-int find_user(user_t *user_list, char* username, char*password, int size){
+int find_user(user_t *user_list, char* username, char* password, int size){
 
+    int user_index = find_username(user_list, username, size);
+    
+    if(user_index != -1){
+        if(strcmp(user_list[user_index].password, password) == 0){
+            return user_index;
+        } else {
+            return -1;
+        }
+    } 
+
+    return -1;
 };
