@@ -74,11 +74,11 @@ void new_password(char **pass){
     int length = (rand() % 3) + 8;
     *pass = (char*)malloc(length+1);
     int i = 0;
-    int n = 94;
+    int n = 93;
     srand(time(0));
 
     for(; i < length; i++){
-        *(*pass + i) = (char) (rand() % n + 32);
+        *(*pass + i) = (char) (rand() % n + 33);
     }
 
     *(*pass + i) = '\0';

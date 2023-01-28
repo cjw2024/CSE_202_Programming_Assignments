@@ -11,7 +11,22 @@ int user_count;
 int change = 0;
 
 int main(int argc, char** argv){
-    user_list = (user_t *)malloc(100*sizeof(user_t));
+    int lines = 1;
+    char c;
+
+    FILE *file = fopen(filename, "r");
+
+    for(c = getc(file); c != EOF; c = getc(file)){
+        if(c == '\n'){
+            lines++;
+        }
+    }
+
+    fclose(file);
+
+    //printf("%d\n", lines);
+
+    user_list = (user_t *)malloc(lines*sizeof(user_t));
     user_count = read_users(user_list, filename);
     if(user_count != -1){
         printf("File \"users.txt\" loaded successfully.\n");
@@ -146,8 +161,8 @@ int main(int argc, char** argv){
             printf("Updating the data file ...\n");
 
             if(change == 1){
-                //int saved = save_users(user_list, filename, user_count);
-                //if(saved != 0)
+                int saved = save_users(user_list, filename, user_count);
+                if(saved != 0)
                     printf("Unable to save file\n");
             }
             
