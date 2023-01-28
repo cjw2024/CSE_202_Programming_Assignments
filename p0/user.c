@@ -6,11 +6,11 @@
 
 #include "user.h"
 
-char* filename = "users.txt";
-user_t* user_list;
-user_t user;
+//char* filename = "users.txt";
+//user_t* user_list;
+//user_t user;
 
-int main(int argc, char** argv){
+/*int main(int argc, char** argv){
     user.password = (char*)malloc(sizeof(char));
     user.password = "no";
     puts(user.password);
@@ -49,7 +49,7 @@ int main(int argc, char** argv){
     int index3 = find_user(user_list, name3, pass3, user_count);
     printf("%d\n", index3);
 
-}
+}*/
 
 void new_password(char **pass){
     /**pass = NULL;
