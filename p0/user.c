@@ -6,11 +6,11 @@
 
 #include "user.h"
 
-//char* filename = "users.txt";
-//user_t* user_list;
-//user_t user;
+char* filename = "users.txt";
+user_t* user_list;
+user_t user;
 
-/*int main(int argc, char** argv){
+int main(int argc, char** argv){
     user.password = (char*)malloc(sizeof(char));
     user.password = "no";
     puts(user.password);
@@ -19,7 +19,7 @@
     puts(user.password);
 
     //char* filename = "users.txt";
-    user_list = (user_t *)malloc(sizeof(user_t));
+    user_list = (user_t *)malloc(100*sizeof(user_t));
     int user_count = read_users(user_list, filename);
     //printf("%d\n", user_count);
     puts(user_list[0].username);
@@ -32,8 +32,8 @@
         printf("%c\n\n", user_list[i].val);
     }
 
-    //int saved = save_users(user_list, filename, user_count);
-    //printf("%d\n", saved);
+    int saved = save_users(user_list, filename, user_count);
+    printf("%d\n", saved);
 
     char* name = "mar210";
     int index = find_username(user_list, name, user_count);
@@ -49,7 +49,7 @@
     int index3 = find_user(user_list, name3, pass3, user_count);
     printf("%d\n", index3);
 
-}*/
+}
 
 void new_password(char **pass){
     /**pass = NULL;
@@ -121,10 +121,10 @@ int read_users(user_t *user_list, char* filename){
         //strcpy(user_list[i].val, num[0]);
         user_list[i].val = (int) num[0];
 
-        /*printf("%s\n", user_list[i].username);
-        printf("%s\n", user_list[i].password);
+        //printf("%s\n", user_list[i].username);
+        //printf("%s\n", user_list[i].password);
         //printf("%d\n", user_list[i].val);
-        printf("%c\n\n", user_list[i].val);*/
+        //printf("%c\n\n", user_list[i].val);
     }
     
     return n;
@@ -136,10 +136,12 @@ int save_users(user_t *user_list, char* filename, int size){
     if (file == NULL) {
         return -1;
     }
-
-    for(int i = 50; i < size; i++){
+    
+    int i = 0;
+    for(; i < size-1; i++){
         fprintf(file, "%s %s %c\n", user_list[i].username, user_list[i].password, user_list[i].val);
     }
+    fprintf(file, "%s %s %c", user_list[i].username, user_list[i].password, user_list[i].val);
 
     fclose(file);
     return 0;

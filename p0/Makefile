@@ -1,7 +1,7 @@
 all: prog0
 
 prog0: prog0.o libuser.a
-	gcc -o prog0 prog0.o -L -libuser.a
+	gcc -o prog0 prog0.o -L. -luser
 
 prog0.o: prog0.c user.h
 	gcc -c prog0.c

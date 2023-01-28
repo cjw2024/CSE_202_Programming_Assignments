@@ -10,13 +10,17 @@ int user_count;
 int change = 0;
 
 int main(int argc, char** argv){
-    user_list = (user_t *)malloc(sizeof(user_t));
-    //user_count = read_users(user_list, filename);
-    /*if(user_count != -1){
-        printf("File "users.txt" loaded successfully.");
+    user_list = (user_t *)malloc(100*sizeof(user_t));
+    user_count = read_users(user_list, filename);
+    if(user_count != -1){
+        printf("File \"users.txt\" loaded successfully.\n");
     } else {
-        printf("File "users.txt" loaded unsuccessfully.");
+        printf("File \"users.txt\" loaded unsuccessfully.\n");
         return 0;
+    }
+
+    /*for(int i = 0; i < user_count; i++){
+        printf("%c\n", user_list[i].val);
     }*/
 
     int index;
