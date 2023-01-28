@@ -18,6 +18,7 @@ int main(int argc, char** argv){
         printf("File \"users.txt\" loaded unsuccessfully.\n");
         return 0;
     }
+    //printf("%d\n", user_count);
 
     /*for(int i = 0; i < user_count; i++){
         printf("%c\n", user_list[i].val);
@@ -26,40 +27,44 @@ int main(int argc, char** argv){
     int index;
 
     for(int i = 0; i < 3; i++){
+        //puts(user_list[11].password);
         printf("Enter login credentials:\n");
 
-        char username[100];
         printf("username: ");
-        fgets(username, sizeof(username), stdin);
+        char username[100];
+        scanf("%99[^\n]", username);
+        getchar();
 
         char password[100];
         printf("password: ");
-        fgets(password, sizeof(password), stdin);
+        scanf("%99[^\n]", password);
+        getchar();
 
-        break;
+        //break;
         //puts(username);
         //puts(password);
 
-        //index = find_user(user_list, username, password, user_count);
-
-        /*if(index != -1)
+        index = find_user(user_list, username, password, user_count);
+        //printf("%d\n", index);
+        if(index != -1)
             break;
         else{
             if(i != 2)
                 printf("Invalid credentials. Try again\n\n");
             else{
-                printf("Access denied after three trials.");
+                printf("Access denied after three trials.\n\n");
                 return 0;
             }     
         }
-            
-        */
+
     }
 
-    /*if(user_list[index].val == 0){
+    //printf("%d\n", index);
+
+    if(user_list[index].val == 48){
         printf("You do not have administrator access rights.  You cannot access the file. \n\n");
         return 0;
-    }*/
+    }
 
     int loop_needed = -1;
 

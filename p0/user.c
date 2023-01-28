@@ -6,7 +6,7 @@
 
 #include "user.h"
 
-char* filename = "users.txt";
+/*char* filename = "users.txt";
 user_t* user_list;
 user_t user;
 
@@ -39,8 +39,8 @@ int main(int argc, char** argv){
     int index = find_username(user_list, name, user_count);
     printf("%d\n", index);
 
-    char* name2 = "lca213";
-    char* pass2 = "`akFzM?_67";
+    char* name2 = "ama220";
+    char* pass2 = "m]Ig[t&AX:";
     int index2 = find_user(user_list, name2, pass2, user_count);
     printf("%d\n", index2);
 
@@ -49,7 +49,7 @@ int main(int argc, char** argv){
     int index3 = find_user(user_list, name3, pass3, user_count);
     printf("%d\n", index3);
 
-}
+}*/
 
 void new_password(char **pass){
     /**pass = NULL;
@@ -136,7 +136,7 @@ int save_users(user_t *user_list, char* filename, int size){
     if (file == NULL) {
         return -1;
     }
-    
+
     int i = 0;
     for(; i < size-1; i++){
         fprintf(file, "%s %s %c\n", user_list[i].username, user_list[i].password, user_list[i].val);
@@ -148,7 +148,9 @@ int save_users(user_t *user_list, char* filename, int size){
 };
 
 int find_username(user_t *user_list, char* username, int size){
-    
+    //puts(username);
+    //printf("%ld\n", strlen(username));
+    //printf("%ld\n", strlen("ama220"));
     for(int i = 0; i < size; i++){
         if(strcmp(username, user_list[i].username) == 0){
             return i;
