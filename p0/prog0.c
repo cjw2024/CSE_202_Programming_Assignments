@@ -124,18 +124,22 @@ int main(int argc, char** argv){
                 printf("User unsuccessfully added\n\n");
             
         }else if(option == 2){
-            char username[100];
             printf("Enter username: ");
-            fgets(username, sizeof(username), stdin);
+            char username[100];
+            scanf("%99[^\n]", username);
+            getchar();
 
-            int found = 0;
-            //int found = find_username(user_list, username, user_count);
+            //int found = 0;
+            int found = find_username(user_list, username, user_count);
             if(found != -1){
-                //reset_password(&user_list[index]);
+                //puts(user_list[found].password);
+                reset_password(&user_list[found]);
                 printf("password reset successfully.\n\n");
                 change = 1;
             }else
                 printf("Unable to find username.\n\n");
+            //puts(user_list[found].password);
+            
 
         }else if(option == 3){
             loop_needed = 0;
