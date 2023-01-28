@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "user.h"
 
@@ -81,37 +82,43 @@ int main(int argc, char** argv){
         //printf("%d\n", option);
 
         if(option == 1){
+            printf("username: ");
             char username[100];
-            printf("Enter username: ");
-            fgets(username, sizeof(username), stdin);
-
-            int user_privilege;
-            printf("Enter user privileges (1 for admin, 0 for user): ");
-            scanf("%d", &user_privilege);
+            scanf("%99[^\n]", username);
             getchar();
 
-            if(user_privilege == 1 | user_privilege == 0){
-                printf("User added successfully: ");
-                puts(username);
+            char user_privilege;
+            printf("Enter user privileges (1 for admin, 0 for user): ");
+            scanf("%c", &user_privilege);
+            getchar();
+
+            if(user_privilege == 48 | user_privilege == 49){
                 
-                /*char pass[100];
-                new_password(pass);
+                char* pass;
+                new_password(&pass);
                 user_t new_user;
                 new_user.username = malloc(strlen(username) + 1);
                 new_user.password = malloc(strlen(pass) + 1);
                 
                 strcpy(new_user.username, username);
                 strcpy(new_user.password, pass);
-                new_user.val = user_privilege;*/
+                new_user.val = user_privilege;
 
-                //user_count++;
-                //user_list = (user_t*)realloc(user_list, user_count * sizeof(user_t));
-                /*if(user_list == NULL){
+                user_count++;
+                user_list = (user_t*)realloc(user_list, user_count * sizeof(user_t));
+                if(user_list == NULL){
                     printf("error");
                     return -1;
-                }*/
-                //user_list[user_count - 1] = new_user;
+                }
+
+                user_list[user_count - 1] = new_user;
+                printf("%s\n", user_list[user_count-2].username);
+                //printf("%s\n", user_list[user_count-1].password);
+                //printf("%d\n", user_list[user_count-1].val);
+
                 change = 1;
+                printf("User added successfully: ");
+                puts(username);
 
             } else 
                 printf("User unsuccessfully added\n\n");
