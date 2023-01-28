@@ -11,12 +11,12 @@ user_t* user_list;
 user_t user;
 
 int main(int argc, char** argv){
-    user.password = argv[1];
+    user.password = (char*)malloc(sizeof(char));
+    user.password = "no";
     puts(user.password);
     reset_password(&user);
     //new_password(argv[1]);
     puts(user.password);
-    puts("");
 
     //char* filename = "users.txt";
     user_list = (user_t *)malloc(sizeof(user_t));
@@ -51,23 +51,41 @@ int main(int argc, char** argv){
 
 }
 
-void new_password(char* pass){
-    int i = 0;
+void new_password(char **pass){
+    /**pass = NULL;
     int length = (rand() % 3) + 8;
-    //printf("%d\n", length);
+    //*pass = (char*)malloc(length+1);  
+    //puts(pass);  
+    int i = 0;
+    
+    char* new[10];
     int n = 94;
     srand(time(0));
-    //pass = (char *)malloc(sizeof(char));
+
     for(; i < length; i++){
-        //pass = (char *)realloc(pass, i+1 * sizeof(char));
-        *(pass + i) = (char) (rand() % n + 32);
-        //printf("%c\n", *(pass + i));
+        new[i] = (char) (rand() % n + 32);
     }
-    *(pass + i) = '\0';
+    new[i] = '\0';
+
+    //*pass = new;
+    //puts(*pass);
+    strcpy(*pass, new);*/
+
+    int length = (rand() % 3) + 8;
+    *pass = (char*)malloc(length+1);
+    int i = 0;
+    int n = 94;
+    srand(time(0));
+
+    for(; i < length; i++){
+        *(*pass + i) = (char) (rand() % n + 32);
+    }
+
+    *(*pass + i) = '\0';
 };
 
 void reset_password(user_t *u){
-    new_password(u->password);
+    new_password(&u->password);
 };
 
 int read_users(user_t *user_list, char* filename){

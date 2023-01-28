@@ -6,15 +6,20 @@
 
 user_t* user_list;
 char* filename = "users.txt";
+int user_count;
+int change = 0;
 
 int main(int argc, char** argv){
-    //int user_count = read_users(user_list, filename);
+    user_list = (user_t *)malloc(sizeof(user_t));
+    //user_count = read_users(user_list, filename);
     /*if(user_count != -1){
         printf("File "users.txt" loaded successfully.");
     } else {
         printf("File "users.txt" loaded unsuccessfully.");
         return 0;
     }*/
+
+    int index;
 
     for(int i = 0; i < 3; i++){
         printf("Enter login credentials:\n");
@@ -31,18 +36,27 @@ int main(int argc, char** argv){
         //puts(username);
         //puts(password);
 
-        //int index = find_user(user_list, username, password, user_count);
+        //index = find_user(user_list, username, password, user_count);
 
         /*if(index != -1)
             break;
-        else 
-            printf("");
+        else{
+            if(i != 2)
+                printf("Invalid credentials. Try again\n\n");
+            else{
+                printf("Access denied after three trials.");
+                return 0;
+            }     
+        }
+            
         */
     }
 
-    /*if(index == -1)
-        return 0;*/
-    
+    /*if(user_list[index].val == 0){
+        printf("You do not have administrator access rights.  You cannot access the file. \n\n");
+        return 0;
+    }*/
+
     int loop_needed = -1;
 
     while(loop_needed == -1){
@@ -52,8 +66,9 @@ int main(int argc, char** argv){
         printf("2: Reset Password of an existing user\n");
         printf("3: Logout\n");
 
-        int option;
+        int option = 0;
         scanf("%d", &option);
+        getchar();
         //printf("%d\n", option);
 
         if(option == 1){
@@ -61,30 +76,62 @@ int main(int argc, char** argv){
             printf("Enter username: ");
             fgets(username, sizeof(username), stdin);
 
-            printf("Enter user privileges (1 for admin, 0 for user): ");
             int user_privilege;
+            printf("Enter user privileges (1 for admin, 0 for user): ");
             scanf("%d", &user_privilege);
+            getchar();
 
             if(user_privilege == 1 | user_privilege == 0){
                 printf("User added successfully: ");
                 puts(username);
+                
+                /*char pass[100];
+                new_password(pass);
+                user_t new_user;
+                new_user.username = malloc(strlen(username) + 1);
+                new_user.password = malloc(strlen(pass) + 1);
+                
+                strcpy(new_user.username, username);
+                strcpy(new_user.password, pass);
+                new_user.val = user_privilege;*/
 
-                /*  need to create new password and add to user_list    */
+                //user_count++;
+                //user_list = (user_t*)realloc(user_list, user_count * sizeof(user_t));
+                /*if(user_list == NULL){
+                    printf("error");
+                    return -1;
+                }*/
+                //user_list[user_count - 1] = new_user;
+                change = 1;
 
             } else 
-                printf("User unsuccessfully added\n");
+                printf("User unsuccessfully added\n\n");
             
         }else if(option == 2){
             char username[100];
             printf("Enter username: ");
             fgets(username, sizeof(username), stdin);
 
-            /*  need to search for user and reset their password with new password  */
+            int found = 0;
+            //int found = find_username(user_list, username, user_count);
+            if(found != -1){
+                //reset_password(&user_list[index]);
+                printf("password reset successfully.\n\n");
+                change = 1;
+            }else
+                printf("Unable to find username.\n\n");
 
-            printf("password reset successfully.");
-            
         }else if(option == 3){
             loop_needed = 0;
+            printf("Updating the data file ...\n");
+
+            if(change == 1){
+                //int saved = save_users(user_list, filename, user_count);
+                //if(saved != 0)
+                    printf("Unable to save file\n");
+            }
+            
+            printf("logout complete\n\n");
         }else{
 
         }
